@@ -1,0 +1,5 @@
+package com.mx.CRUDVideojuegos.servicio;
+
+public interface VideojuegoServicio {
+
+}

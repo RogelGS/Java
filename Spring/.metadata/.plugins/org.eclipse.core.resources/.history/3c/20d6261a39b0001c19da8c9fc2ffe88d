@@ -1,0 +1,5 @@
+package com.mx.CRUDVegetales.dao;
+
+public interface VegetalDao {
+
+}

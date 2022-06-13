@@ -1,0 +1,9 @@
+package com.mx.CRUDVegetales.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.mx.CRUDVegetales.dominio.Vegetal;
+
+public interface VegetalDao extends JpaRepository<Vegetal, Integer>{
+
+}

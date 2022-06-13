@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Eliminar de Gyms</title>
+</head>
+<body>
+	<h1>Eliminar de GYM</h1>
+	<br>
+	<a th:href="@{/GYM/INICIO}">Regresar</a>
+	<br>
+	<form th:action="@{/GYM/ELIMINAR}" method="post" th:object="${gym}">
+		<label for="id">Id</label>
+		<input type="text" name="id" th:field="*{id}" readonly>
+		<br>
+		<label for="nombre">Nombre</label>
+		<input type="text" name="nombre" th:field="*{nombre}" readonly>
+		<br>
+		<label for="inscripcion">Inscripcion</label>
+		<input type="text" name="inscripcion" th:field="*{inscripcion}" readonly>
+		<br>
+		<label for="mensualidad">Mensualidad</label>
+		<input type="text" name="mensualidad" th:field="*{mensualidad}" readonly>
+		<br>
+		<label for="estado">Estado</label>
+		<input type="text" name="estado" th:field="*{estado}" readonly>
+		<br>
+		<input type="submit" name="eliminar" value="Eliminar">
+	</form>
+</body>
+</html>

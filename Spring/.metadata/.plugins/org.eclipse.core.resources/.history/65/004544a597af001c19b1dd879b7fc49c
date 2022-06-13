@@ -1,0 +1,5 @@
+package com.mx.CRUDGym.controlador;
+
+public class GymAPI {
+
+}

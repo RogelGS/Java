@@ -1,0 +1,9 @@
+package com.mx.CRUDVideojuegos.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.mx.CRUDVideojuegos.dominio.Videojuego;
+
+public interface VideojuegoDao extends JpaRepository<Videojuego, Integer> {
+
+}

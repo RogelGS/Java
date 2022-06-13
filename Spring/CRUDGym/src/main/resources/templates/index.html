@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Lista de Gyms</title>
+</head>
+<body>
+	<h1>Registros de GYM</h1>
+	<br>
+	<a th:href="@{/GYM/abrirGuardar}">Guardar</a>
+	<br>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nombre</th>
+				<th>Mensualidad</th>
+				<th>Inscripcion</th>
+				<th>Estado</th>
+				<th>Editar</th>
+				<th>Eliminar</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="g : ${lista}">
+				<td th:text = "${g.id}">Id</td>
+				<td th:text = "${g.nombre}">Nombre</td>
+				<td th:text = "${g.mensualidad}">Mensualidad</td>
+				<td th:text = "${g.inscripcion}">Inscripcion</td>
+				<td th:text = "${g.estado}">Estado</td>
+				<td><a th:href="@{/GYM/abrirEditar/}+${g.id}" th:text="Editar"></a></td>
+				<td><a th:href="@{/GYM/abrirEliminar/}+${g.id}" th:text="Eliminar"></a></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

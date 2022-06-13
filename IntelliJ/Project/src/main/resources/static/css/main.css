@@ -1,0 +1,14 @@
+.green{
+	background-color: #17a54d;
+}
+.size{
+	font-weight: bold;
+	font-size: 28px;
+	border-bottom: 3px solid #fff;
+}
+.size-off{
+	font-weight: bold;
+	font-size: 28px;
+	border-bottom: 3px solid #fff;
+	opacity: .5;
+}

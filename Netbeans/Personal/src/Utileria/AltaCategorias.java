@@ -1,0 +1,480 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Utileria;
+
+import Controlador.ControladorCampos;
+import Controlador.ControladorCategoria;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import sun.swing.table.DefaultTableCellHeaderRenderer;
+
+/**
+ *
+ * @author KSGAMER
+ */
+public class AltaCategorias extends java.awt.Dialog {
+    private DefaultTableCellRenderer cellRender = new DefaultTableCellRenderer();
+    private ControladorCampos campos = new ControladorCampos();
+    private ControladorCategoria categorias;
+    private String categoriaID;
+    /**
+     * Creates new form AltaCategorias
+     * @param parent
+     * @param modal
+     */
+    public AltaCategorias(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        this.setLocationRelativeTo(null);
+        cargarTabla("");
+        configuracionInicial();
+    }
+    
+    public void configuracionInicial() {
+        Notificacion.setVisible(false);
+        ErrorCategoria.setVisible(false);
+    }
+    
+    public void cargar(int contador) {
+        new Thread() {
+            public void run() {
+                for (int i = contador; i < 702; i+=4) {
+                    try {
+                        lbCargar.setBounds(0, 0, i, 4);
+                        this.sleep(0, 2);
+                    } catch (InterruptedException ex) {
+                        
+                    }
+                }
+                lbCargar.setBounds(0, 0, 0, 4);
+            }
+        }.start();
+    }
+    
+    public void cargarTabla(String busqueda) {
+        tbCategorias.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 13));
+        tbCategorias.getTableHeader().setOpaque(false);
+        tbCategorias.getTableHeader().setBackground(new Color(32, 136, 203));
+        tbCategorias.getTableHeader().setForeground(new Color(255, 255, 255));
+        ((DefaultTableCellHeaderRenderer) tbCategorias.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        categorias = new ControladorCategoria();
+        tbCategorias.setModel(this.categorias.tablaCategorias(busqueda));
+        cellRender.setHorizontalAlignment(SwingConstants.CENTER);
+        tbCategorias.getColumnModel().getColumn(0).setCellRenderer(cellRender);
+    }
+    
+    public void insertarCategorias() {
+        cargar(20);
+        this.categorias.insertarCategorias(categoria.getText(), Notificacion, Mensaje);
+    }
+    
+    public void actualizarCategorias() {
+        cargar(20);
+        this.categorias.actualizarCategorias(categoria.getText(), categoriaID, Notificacion, Mensaje);
+    }
+    
+    public void eliminarCategorias() {
+        cargar(20);
+        this.categorias.eliminarCategorias(categoriaID, Notificacion, Mensaje);
+    }
+    
+    public boolean verificar() {
+        boolean campo = true;
+        if(categoria.getText().contains("Ingrese") || categoria.getText().equals("")) {
+            campo = false;
+            ErrorCategoria.setVisible(true);
+        }
+        return campo;
+    }
+    
+    public void mensaje() {
+        Notificacion.setVisible(true);
+        Notificacion.setBackground(new Color(220, 24, 24));
+        Mensaje.setText("Verifique que los campos estan llenados");
+    }
+    
+    public void habilitarBotones() {
+        AgregarModificar.setToolTipText("Modificar");
+        AgregarModificar.setIcon(new ImageIcon("src/Imagen/Principal/modificar-24.png"));
+        AgregarModificar.setBackground(new Color(255, 181, 62));
+        Eliminar.setEnabled(true);
+    }
+    
+    public void cerrarNotificacion() {
+        Notificacion.setVisible(false);
+    }
+
+    public void cancelar() {
+        AgregarModificar.setToolTipText("Agregar");
+        AgregarModificar.setIcon(new ImageIcon("src/Imagen/Principal/agregar-24.png"));
+        AgregarModificar.setBackground(new Color(35, 144, 35));
+        Eliminar.setEnabled(false);
+        categoria.setText("Ingrese el nombre de la categoria");
+        buscar.setText("Buscar una categoria");
+        ErrorCategoria.setVisible(false);
+        cargarTabla("");
+    }
+    
+    public void seleccionar(int seleccion) {
+        habilitarBotones();
+        this.categorias.listaCategorias().stream().filter((objetoCategoria) -> (objetoCategoria.getCategoriaID().equals(tbCategorias.getValueAt(seleccion, 0)))).forEachOrdered((objetoCategoria) -> {
+            categoria.setText(objetoCategoria.getCategoriaID());
+            categoriaID = objetoCategoria.getCategoriaID();
+        });
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel3 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbCategorias = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        categoria = new javax.swing.JTextField();
+        ErrorCategoria = new javax.swing.JLabel();
+        AgregarModificar = new javax.swing.JLabel();
+        Eliminar = new javax.swing.JLabel();
+        Cancelar = new javax.swing.JLabel();
+        buscar = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        Notificacion = new javax.swing.JPanel();
+        CerrarNotificacion = new javax.swing.JLabel();
+        Mensaje = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        lbCargar = new javax.swing.JLabel();
+
+        setMinimumSize(new java.awt.Dimension(702, 283));
+        setUndecorated(true);
+        setSize(new java.awt.Dimension(702, 283));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                closeDialog(evt);
+            }
+        });
+        setLayout(null);
+
+        jPanel3.setBackground(new java.awt.Color(24, 150, 226));
+        jPanel3.setLayout(null);
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Principal/cerrar_modal-24.png"))); // NOI18N
+        jLabel5.setToolTipText("Cerrar");
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
+        jPanel3.add(jLabel5);
+        jLabel5.setBounds(670, 10, 16, 16);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText(" Módulo Alta de Categorias");
+        jPanel3.add(jLabel4);
+        jLabel4.setBounds(0, 0, 702, 40);
+
+        add(jPanel3);
+        jPanel3.setBounds(0, 0, 702, 40);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(null);
+
+        tbCategorias = new javax.swing.JTable() {
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
+        tbCategorias.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbCategorias.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tbCategorias.getTableHeader().setResizingAllowed(false);
+        tbCategorias.getTableHeader().setReorderingAllowed(false);
+        tbCategorias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbCategoriasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbCategorias);
+
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(20, 60, 330, 130);
+
+        jPanel2.setLayout(null);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setText("Nombre:");
+        jPanel2.add(jLabel1);
+        jLabel1.setBounds(20, 25, 60, 15);
+
+        categoria.setText("Ingrese el nombre de la categoria");
+        categoria.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                categoriaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                categoriaFocusLost(evt);
+            }
+        });
+        categoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                categoriaMouseClicked(evt);
+            }
+        });
+        jPanel2.add(categoria);
+        categoria.setBounds(20, 40, 250, 25);
+
+        ErrorCategoria.setBackground(new java.awt.Color(220, 24, 24));
+        ErrorCategoria.setOpaque(true);
+        jPanel2.add(ErrorCategoria);
+        ErrorCategoria.setBounds(20, 65, 250, 2);
+
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(380, 30, 300, 100);
+
+        AgregarModificar.setBackground(new java.awt.Color(35, 144, 35));
+        AgregarModificar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        AgregarModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Principal/agregar-24.png"))); // NOI18N
+        AgregarModificar.setToolTipText("Agregar");
+        AgregarModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        AgregarModificar.setOpaque(true);
+        AgregarModificar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AgregarModificarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(AgregarModificar);
+        AgregarModificar.setBounds(470, 150, 30, 32);
+
+        Eliminar.setBackground(new java.awt.Color(220, 24, 24));
+        Eliminar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Principal/eliminar-20.png"))); // NOI18N
+        Eliminar.setToolTipText("Eliminar");
+        Eliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Eliminar.setEnabled(false);
+        Eliminar.setOpaque(true);
+        Eliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EliminarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(Eliminar);
+        Eliminar.setBounds(520, 150, 30, 32);
+
+        Cancelar.setBackground(new java.awt.Color(48, 165, 255));
+        Cancelar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Principal/cancelar-24.png"))); // NOI18N
+        Cancelar.setToolTipText("Cancelar");
+        Cancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Cancelar.setOpaque(true);
+        Cancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CancelarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(Cancelar);
+        Cancelar.setBounds(570, 150, 30, 32);
+
+        buscar.setText("Buscar una categoria");
+        buscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                buscarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                buscarFocusLost(evt);
+            }
+        });
+        buscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buscarMouseClicked(evt);
+            }
+        });
+        buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                buscarKeyTyped(evt);
+            }
+        });
+        jPanel1.add(buscar);
+        buscar.setBounds(20, 30, 330, 25);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setText("Buscar:");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(20, 15, 50, 15);
+
+        Notificacion.setBackground(new java.awt.Color(220, 24, 24));
+        Notificacion.setLayout(null);
+
+        CerrarNotificacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        CerrarNotificacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Principal/cerrarNotificacion-16.png"))); // NOI18N
+        CerrarNotificacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CerrarNotificacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CerrarNotificacionMouseClicked(evt);
+            }
+        });
+        Notificacion.add(CerrarNotificacion);
+        CerrarNotificacion.setBounds(681, 0, 20, 20);
+
+        Mensaje.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Mensaje.setForeground(new java.awt.Color(255, 255, 255));
+        Mensaje.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Mensaje.setText("jLabel3");
+        Notificacion.add(Mensaje);
+        Mensaje.setBounds(0, 0, 680, 20);
+
+        jPanel1.add(Notificacion);
+        Notificacion.setBounds(0, 222, 702, 20);
+
+        jPanel4.setLayout(null);
+
+        lbCargar.setBackground(new java.awt.Color(45, 144, 54));
+        lbCargar.setOpaque(true);
+        jPanel4.add(lbCargar);
+        lbCargar.setBounds(0, 0, 0, 4);
+
+        jPanel1.add(jPanel4);
+        jPanel4.setBounds(0, 0, 702, 4);
+
+        add(jPanel1);
+        jPanel1.setBounds(0, 40, 702, 242);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * Closes the dialog
+     */
+    private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
+        setVisible(false);
+        dispose();
+    }//GEN-LAST:event_closeDialog
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        this.dispose();
+    }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void tbCategoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCategoriasMouseClicked
+        seleccionar(tbCategorias.rowAtPoint(evt.getPoint()));
+    }//GEN-LAST:event_tbCategoriasMouseClicked
+
+    private void categoriaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_categoriaFocusGained
+        campos.limpiarCamposFocus(categoria);
+    }//GEN-LAST:event_categoriaFocusGained
+
+    private void categoriaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_categoriaFocusLost
+        campos.configurarCampoFocus(categoria, "Ingrese el nombre de la categoria");
+    }//GEN-LAST:event_categoriaFocusLost
+
+    private void categoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_categoriaMouseClicked
+        campos.limpiarCamposFocus(categoria);
+    }//GEN-LAST:event_categoriaMouseClicked
+
+    private void AgregarModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarModificarMouseClicked
+        if (verificar() == true) {
+            if (AgregarModificar.getIcon().toString().contains("agregar")) {
+                insertarCategorias();
+            } else {
+                actualizarCategorias();
+            }
+            cancelar();
+        } else {
+            mensaje();
+        }
+    }//GEN-LAST:event_AgregarModificarMouseClicked
+
+    private void EliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EliminarMouseClicked
+        eliminarCategorias();
+        cancelar();
+    }//GEN-LAST:event_EliminarMouseClicked
+
+    private void CancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelarMouseClicked
+        cancelar();
+    }//GEN-LAST:event_CancelarMouseClicked
+
+    private void buscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_buscarFocusGained
+        campos.limpiarCamposFocus(buscar);
+    }//GEN-LAST:event_buscarFocusGained
+
+    private void buscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_buscarFocusLost
+        campos.configurarCampoFocus(buscar, "Buscar una categoria");
+    }//GEN-LAST:event_buscarFocusLost
+
+    private void buscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMouseClicked
+        campos.limpiarCamposFocus(buscar);
+    }//GEN-LAST:event_buscarMouseClicked
+
+    private void buscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarKeyTyped
+        cargarTabla(buscar.getText());
+    }//GEN-LAST:event_buscarKeyTyped
+
+    private void CerrarNotificacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarNotificacionMouseClicked
+        cerrarNotificacion();
+    }//GEN-LAST:event_CerrarNotificacionMouseClicked
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                AltaCategorias dialog = new AltaCategorias(new java.awt.Frame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AgregarModificar;
+    private javax.swing.JLabel Cancelar;
+    private javax.swing.JLabel CerrarNotificacion;
+    private javax.swing.JLabel Eliminar;
+    private javax.swing.JLabel ErrorCategoria;
+    private javax.swing.JLabel Mensaje;
+    private javax.swing.JPanel Notificacion;
+    private javax.swing.JTextField buscar;
+    private javax.swing.JTextField categoria;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbCargar;
+    private javax.swing.JTable tbCategorias;
+    // End of variables declaration//GEN-END:variables
+}

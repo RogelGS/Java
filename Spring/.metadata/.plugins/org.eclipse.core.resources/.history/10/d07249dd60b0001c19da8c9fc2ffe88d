@@ -1,0 +1,42 @@
+package com.mx.CRUDVideojuegos.servicio;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.mx.CRUDVideojuegos.dominio.Videojuego;
+
+@Service
+public class VideojuegoImplementacion implements VideojuegoServicio {
+
+	@Override
+	public void guardar(Videojuego v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void editar(Videojuego v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eliminar(Videojuego v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Videojuego buscar(Videojuego v) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Videojuego> listar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,5 @@
+package com.mx.CRUDVideojuegos.dominio;
+
+public class Videojuego {
+
+}

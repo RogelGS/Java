@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.mx.CRUDCine.servicio.ClasificaicionServicio&apos; to &apos;ClasificacionServicio&apos;&#x0D;&#x0A;- Original project: &apos;CRUDCine&apos;&#x0D;&#x0A;- Original element: &apos;com.mx.CRUDCine.servicio.ClasificaicionServicio&apos;&#x0D;&#x0A;- Renamed element: &apos;com.mx.CRUDCine.servicio.ClasificacionServicio&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;ClasificaicionServicio&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.mx.CRUDCine.servicio{ClasificaicionServicio.java[ClasificaicionServicio" matchStrategy="1" name="ClasificacionServicio" qualified="false" references="true" similarDeclarations="false" stamp="1648416535969" textual="false" version="1.0"/>
+</session>
